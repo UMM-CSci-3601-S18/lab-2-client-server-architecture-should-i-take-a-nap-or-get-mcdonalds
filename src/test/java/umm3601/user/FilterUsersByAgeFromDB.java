@@ -19,7 +19,9 @@ public class FilterUsersByAgeFromDB {
         Database db = new Database("src/main/data/users.json");
         User[] allUsers = db.listUsers(new HashMap<>());
 
+
         User[] age27Users = db.filterUsersByAge(allUsers, 27);
+        assertEquals("Incorrect number of users with age 27", 3, age27Users.length);
         assertEquals("Incorrect number of users with age 27", 3, age27Users.length);
 
         User[] age33Users = db.filterUsersByAge(allUsers, 33);
