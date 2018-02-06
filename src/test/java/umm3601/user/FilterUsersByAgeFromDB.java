@@ -22,7 +22,6 @@ public class FilterUsersByAgeFromDB {
 
         User[] age27Users = db.filterUsersByAge(allUsers, 27);
         assertEquals("Incorrect number of users with age 27", 3, age27Users.length);
-        assertEquals("Incorrect number of users with age 27", 3, age27Users.length);
 
         User[] age33Users = db.filterUsersByAge(allUsers, 33);
         assertEquals("Incorrect number of users with age 33", 1, age33Users.length);
