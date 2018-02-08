@@ -6,6 +6,21 @@
   <title>todo</title>
 </head>
 <body>
-Oh hai mark
+Oh hai mark :/
+
+
+
+<br>
+<button type="button" id="getToDo"> Get To Do's </button>
+<div id="jsonDump" style="margin-top:20px"> Json will go here </div>
+<script>
+  window.onload = function() {
+    console.log("The page is loaded now!");
+
+    var element = document.getElementById('getToDo');
+    element.addEventListener("click", getAllTodos, true);
+
+  }
+</script>
 </body>
 </html>

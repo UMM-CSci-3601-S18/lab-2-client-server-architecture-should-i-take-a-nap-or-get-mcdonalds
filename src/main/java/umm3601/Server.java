@@ -14,7 +14,9 @@ import static spark.debug.DebugScreen.*;
 public class Server {
 
   public static final String USER_DATA_FILE = "src/main/data/users.json";
+  public static final String TODO_DATA_FILE = "src/main/data/todos.json";
   private static Database userDatabase;
+  private static Database todoDatabase;
 
   public static void main(String[] args) {
 
@@ -33,6 +35,7 @@ public class Server {
     // Redirects to create simpler URLs
     redirect.get("/about", "/about.html");
     redirect.get("/users", "/users.html");
+    redirect.get("/todo", "/todo.html");
 
     // API endpoints
 
@@ -40,6 +43,7 @@ public class Server {
     get("api/users/:id", userController::getUser);
     // List users, filtered using query parameters
     get("api/users", userController::getUsers);
+    //get("api/todos", todoController::getUsers);
 
     // An example of throwing an unhandled exception so you can see how the
     // Java Spark debugger displays errors like this.

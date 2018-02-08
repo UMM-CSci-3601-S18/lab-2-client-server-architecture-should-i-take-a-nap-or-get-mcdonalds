@@ -32,7 +32,7 @@ function getAllUsersByAge() {
  */
 function HttpClient() {
   // We'll take a URL string, and a callback function.
-  this.get = function(aUrl, aCallback){
+  this.get = function(aUrl, aCallback){getAll
     var anHttpRequest = new XMLHttpRequest();
 
     // Set a callback to be called when the ready state of our request changes.
