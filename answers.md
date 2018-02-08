@@ -9,5 +9,6 @@
     -The page api/users?age=25 runs the getUsers function in the UserController class, which then uses the listUsers function in the Database class. This function filters users by a parameter in the Request called 'age'. It then returns the filtered results as a JSON object.
     -The page api/users/588935f5de613130e931ffd5 runs the getUser function in the UserController class which returns a JSON object with a matching id to the id that was given (in this case 588935f5de613130e931ffd5).
 6) The public folder contains all of the CSS files, as well as the HTML and Javascript files. These files work together to build the webpage that the consumer sees. The HTML files are there because they populate each individual webpage with text and basic structure.
-7) 
+7) When we filter users by age, only the users with that age are pulled from the database. 
+- <input id="age" type= "text" name="age"> is read from the web page, which then runs getUsers function, with the request that was read. A JSON object with that contains users with the specified age is received, and is displayed on the webpage.
 8) The client-side JavaScript is defined in the /public/javascript/ file and is named users.js. The JavaScript file is used specifically in the users.html file. 
