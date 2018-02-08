@@ -18,6 +18,7 @@ import java.util.Map;
 public class Database {
 
   private User[] allUsers;
+  private Todo[] allTodo;
 
   public Database(String userDataFile) throws IOException {
     Gson gson = new Gson();
@@ -68,4 +69,21 @@ public class Database {
     return Arrays.stream(users).filter(x -> x.age == targetAge).toArray(User[]::new);
   }
 
+  public Todo[] listTodos(Map<String, String[]> queryParams) {
+    Todo[] filteredTodos = allTodo;
+
+    // Filter age if defined
+    if(queryParams.containsKey("_id")) {
+      String targetID = queryParams.get("_id")[0];
+      filteredTodos = filterTodosByID(filteredTodos, targetID);
+    }
+    // Process other query parameters here...
+
+    return filteredTodos;
+  }
+
+
+  public Todo[] filterTodosByID(Todo[] todos, String targetID) {
+    return Arrays.stream(todos).filter(x -> x._id.compareToIgnoreCase(targetID) == 0).toArray(Todo[]::new);
+  }
 }
