@@ -4,9 +4,8 @@ function getAllTodos() {
   var base = "/api/todos";
   var filter = "?";
 
-  if(document.getElementById(""))
   var HttpThingy = new HttpClient();
-  HttpThingy.get(base, function(returned_json){
+  HttpThingy.get("/api/todos", function(returned_json){
     document.getElementById('jsonDump').innerHTML = returned_json;
   });
 }

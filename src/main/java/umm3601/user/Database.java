@@ -23,7 +23,12 @@ public class Database {
   public Database(String userDataFile) throws IOException {
     Gson gson = new Gson();
     FileReader reader = new FileReader(userDataFile);
-    allUsers = gson.fromJson(reader, User[].class);
+
+    if(userDataFile.equals("src/main/data/users.json")){
+      allUsers = gson.fromJson(reader, User[].class);
+    } else {
+      allTodo = gson.fromJson(reader, Todo[].class);
+    }
   }
 
   /**
@@ -72,12 +77,18 @@ public class Database {
   public Todo[] listTodos(Map<String, String[]> queryParams) {
     Todo[] filteredTodos = allTodo;
 
-    // Filter age if defined
+    // Filter id if defined
     if(queryParams.containsKey("_id")) {
       String targetID = queryParams.get("_id")[0];
       filteredTodos = filterTodosByID(filteredTodos, targetID);
     }
     // Process other query parameters here...
+
+    // Filter owner if defined
+    if(queryParams.containsKey("owner")) {
+      String targetID = queryParams.get("owner")[0];
+      filteredTodos = filterTodosByID(filteredTodos, targetID);
+    }
 
     return filteredTodos;
   }
