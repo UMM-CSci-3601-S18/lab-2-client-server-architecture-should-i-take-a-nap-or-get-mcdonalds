@@ -1,11 +1,28 @@
 function getAllTodos() {
   console.log("Getting some todos.");
 
-  var base = "/api/todos";
+  var theUrl = "/api/todos";
+  var isFiltered = false;
   var filter = "?";
 
+  if(document.getElementById("_id").value != ""){
+    filter = filter + "_id=" + document.getElementById("_id").value;
+    isFiltered = true;
+  }
+  if(document.getElementById("owner").value != ""){
+    if(isFiltered = true){
+      filter = filter + "&";
+    }
+    filter = filter + "owner=" + document.getElementById("owner").value;
+    isFiltered = true;
+  }
+
+
+  if(isFiltered){
+    theUrl = theUrl+filter;
+  }
   var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos", function(returned_json){
+  HttpThingy.get(theUrl, function(returned_json){
     document.getElementById('jsonDump').innerHTML = returned_json;
   });
 }

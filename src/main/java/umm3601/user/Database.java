@@ -87,7 +87,7 @@ public class Database {
     // Filter owner if defined
     if(queryParams.containsKey("owner")) {
       String targetID = queryParams.get("owner")[0];
-      filteredTodos = filterTodosByID(filteredTodos, targetID);
+      filteredTodos = filterTodosByOwner(filteredTodos, targetID);
     }
 
     return filteredTodos;
@@ -96,5 +96,8 @@ public class Database {
 
   public Todo[] filterTodosByID(Todo[] todos, String targetID) {
     return Arrays.stream(todos).filter(x -> x._id.compareToIgnoreCase(targetID) == 0).toArray(Todo[]::new);
+  }
+  public Todo[] filterTodosByOwner(Todo[] todos, String targetOwner) {
+    return Arrays.stream(todos).filter(x -> x.owner.compareToIgnoreCase(targetOwner) == 0).toArray(Todo[]::new);
   }
 }
