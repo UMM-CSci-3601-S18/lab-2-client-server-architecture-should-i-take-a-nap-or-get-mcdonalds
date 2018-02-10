@@ -86,8 +86,20 @@ public class Database {
 
     // Filter owner if defined
     if(queryParams.containsKey("owner")) {
-      String targetID = queryParams.get("owner")[0];
-      filteredTodos = filterTodosByOwner(filteredTodos, targetID);
+      String targetOwner = queryParams.get("owner")[0];
+      filteredTodos = filterTodosByOwner(filteredTodos, targetOwner);
+    }
+
+    if(queryParams.containsKey("status")) {
+      String targetStatus = queryParams.get("status")[0];
+
+      if(targetStatus.equals("true")){
+        filteredTodos = filterTodosByStatus(filteredTodos, true);
+      }
+      else{
+        filteredTodos = filterTodosByStatus(filteredTodos, false);
+      }
+
     }
 
     return filteredTodos;
@@ -99,5 +111,9 @@ public class Database {
   }
   public Todo[] filterTodosByOwner(Todo[] todos, String targetOwner) {
     return Arrays.stream(todos).filter(x -> x.owner.compareToIgnoreCase(targetOwner) == 0).toArray(Todo[]::new);
+  }
+
+  public Todo[] filterTodosByStatus(Todo[] todos, Boolean targetStatus) {
+    return Arrays.stream(todos).filter(x -> x.status == targetStatus).toArray(Todo[]::new);
   }
 }
