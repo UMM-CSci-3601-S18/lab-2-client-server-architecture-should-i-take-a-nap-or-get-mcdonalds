@@ -24,6 +24,23 @@ Status: <select id="status" name="status">
   <option value="false">Incomplete</option>
 </select>
 <br>
+Category: <select id="category" name="category">
+  <option value="all"></option>
+  <option value="homework">Homework</option>
+  <option value="groceries">Groceries</option>
+  <option value="video games">Video Games</option>
+  <option value="software design">Software Design</option>
+</select>
+<br>
+Order By: <select id="orderBy" name="orderBy">
+  <option value="all"></option>
+  <option value="_id">ID</option>
+  <option value="owner">Owner</option>
+  <option value="status">Status</option>
+  <option value="body">Body</option>
+  <option value="category">Category</option>
+</select>
+<br>
 <button type="button" id="getToDo"> Get To Do's </button>
 <br>
 <div id="jsonDump" style="margin-top:20px"> Json will go here </div>

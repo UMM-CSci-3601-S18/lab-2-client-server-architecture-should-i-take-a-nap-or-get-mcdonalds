@@ -1,10 +1,12 @@
 package umm3601.user;
 
 import com.google.gson.Gson;
+import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map;
 
 /**
@@ -107,6 +109,27 @@ public class Database {
       filteredTodos = filterTodosByBody(filteredTodos, targetBody);
     }
 
+    if(queryParams.containsKey("limit")) {
+      String targetLimit = queryParams.get("limit")[0];
+      try {
+        int limit = Integer.parseInt(targetLimit);
+        filteredTodos = filterTodosByLimit(filteredTodos, limit);
+      } catch(IllegalArgumentException e) {
+
+      }
+    }
+
+    if(queryParams.containsKey("category")) {
+      String targetCategory = queryParams.get("category")[0];
+      filteredTodos = filterTodosByCategory(filteredTodos, targetCategory);
+    }
+
+    if(queryParams.containsKey("orderBy")) {
+      String targetOrder = queryParams.get("orderBy")[0];
+      filteredTodos = orderTodosByCategory(filteredTodos, targetOrder);
+    }
+
+
     return filteredTodos;
   }
 
@@ -125,4 +148,47 @@ public class Database {
   public Todo[] filterTodosByBody(Todo[] todos, String targetBody) {
     return Arrays.stream(todos).filter(x -> x.body.toLowerCase().contains(targetBody.toLowerCase())).toArray(Todo[]::new);
   }
+
+  public Todo[] filterTodosByLimit(Todo[] todos, int targetLimit) {
+    Todo[] fin = new Todo[targetLimit];
+
+    for(int i = 0; i < targetLimit; i++){
+      fin[i]= todos[i];
+    }
+    return fin;
+  }
+
+  public Todo[] filterTodosByCategory(Todo[] todos, String targetCategory) {
+    return Arrays.stream(todos).filter(x -> x.category.toLowerCase().contains(targetCategory.toLowerCase())).toArray(Todo[]::new);
+  }
+  public Todo[] orderTodosByCategory(Todo[] todos, String targetOrder) {
+    Arrays.sort(todos, new Comparator<Todo>() {
+      @Override
+      public int compare(Todo o1, Todo o2) {
+        if(targetOrder.equals("_id")){
+          return o1._id.compareToIgnoreCase(o2._id);
+        }
+        if(targetOrder.equals("owner")){
+          return o1.owner.compareToIgnoreCase(o2.owner);
+        }
+        if(targetOrder.equals("status")){
+          int m = 0;
+          int n = 0;
+          if(o1.status == true) m = 1;
+          if(o2.status == true) n = 1;
+          return m-n;
+        }
+        if(targetOrder.equals("body")){
+          return o1.body.compareToIgnoreCase(o2.body);
+        }
+        if(targetOrder.equals("category")){
+          return o1.category.compareToIgnoreCase(o2.category);
+        }
+
+        return 0;
+      }
+    });
+    return todos;
+  }
+
 }

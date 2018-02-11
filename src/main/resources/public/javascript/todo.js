@@ -33,10 +33,36 @@ function getAllTodos() {
     isFiltered = true;
   }
 
+  if(document.getElementById("limit").value != ""){
+    if(isFiltered = true){
+      filter = filter + "&";
+    }
+    filter = filter + "limit=" + document.getElementById("limit").value;
+    isFiltered = true;
+  }
+
+  if(document.getElementById("category").value != "all"){
+    if(isFiltered = true){
+      filter = filter + "&";
+    }
+    filter = filter + "category=" + document.getElementById("category").value;
+    isFiltered = true;
+  }
+
+  if(document.getElementById("orderBy").value != "all"){
+    if(isFiltered = true){
+      filter = filter + "&";
+    }
+    filter = filter + "orderBy=" + document.getElementById("orderBy").value;
+    isFiltered = true;
+  }
 
   if(isFiltered){
     theUrl = theUrl+filter;
   }
+
+  console.log(theUrl);
+
   var HttpThingy = new HttpClient();
   HttpThingy.get(theUrl, function(returned_json){
     document.getElementById('jsonDump').innerHTML = returned_json;
