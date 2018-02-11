@@ -102,6 +102,11 @@ public class Database {
 
     }
 
+    if(queryParams.containsKey("contains")) {
+      String targetBody = queryParams.get("contains")[0];
+      filteredTodos = filterTodosByBody(filteredTodos, targetBody);
+    }
+
     return filteredTodos;
   }
 
@@ -115,5 +120,9 @@ public class Database {
 
   public Todo[] filterTodosByStatus(Todo[] todos, Boolean targetStatus) {
     return Arrays.stream(todos).filter(x -> x.status == targetStatus).toArray(Todo[]::new);
+  }
+
+  public Todo[] filterTodosByBody(Todo[] todos, String targetBody) {
+    return Arrays.stream(todos).filter(x -> x.body.toLowerCase().contains(targetBody.toLowerCase())).toArray(Todo[]::new);
   }
 }

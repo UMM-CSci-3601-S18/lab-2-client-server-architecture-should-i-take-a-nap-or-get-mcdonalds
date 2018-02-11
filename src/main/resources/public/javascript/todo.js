@@ -1,6 +1,5 @@
 function getAllTodos() {
   console.log("Getting some todos.");
-  console.log(document.getElementById("status").value);
 
   var theUrl = "/api/todos";
   var isFiltered = false;
@@ -19,11 +18,18 @@ function getAllTodos() {
   }
 
   if(document.getElementById("status").value != "all"){
-    console.log("mmm whatcha say?")
     if(isFiltered = true){
       filter = filter + "&";
     }
     filter = filter + "status=" + document.getElementById("status").value;
+    isFiltered = true;
+  }
+
+  if(document.getElementById("body").value != ""){
+    if(isFiltered = true){
+      filter = filter + "&";
+    }
+    filter = filter + "contains=" + document.getElementById("body").value;
     isFiltered = true;
   }
 
